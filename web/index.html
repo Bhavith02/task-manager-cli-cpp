@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Pro - Web Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📋 Task Manager Pro</h1>
+            <div class="stats">
+                <span id="total-tasks">Total: 0</span>
+                <span id="pending-tasks">Pending: 0</span>
+                <span id="completed-tasks">Completed: 0</span>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button onclick="showAddTaskModal()" class="btn btn-primary">
+                ➕ Add Task
+            </button>
+            <input type="text" id="search-box" placeholder="🔍 Search tasks..." 
+                   oninput="searchTasks()">
+            <select id="filter-status" onchange="filterTasks()">
+                <option value="all">All Status</option>
+                <option value="PENDING">Pending</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+            <select id="filter-priority" onchange="filterTasks()">
+                <option value="all">All Priorities</option>
+                <option value="HIGH">High</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="LOW">Low</option>
+            </select>
+            <button onclick="loadTasks()" class="btn btn-secondary">
+                🔄 Refresh
+            </button>
+        </div>
+
+        <!-- Tasks Grid -->
+        <div id="tasks-container" class="tasks-grid">
+            <!-- Tasks will be loaded here -->
+        </div>
+
+        <!-- Add/Edit Task Modal -->
+        <div id="task-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modal-title">Add New Task</h2>
+                <form id="task-form" onsubmit="saveTask(event)">
+                    <input type="hidden" id="task-id">
+                    
+                    <label for="task-title">Title *</label>
+                    <input type="text" id="task-title" required>
+                    
+                    <label for="task-description">Description *</label>
+                    <textarea id="task-description" rows="4" required></textarea>
+                    
+                    <label for="task-priority">Priority</label>
+                    <select id="task-priority">
+                        <option value="LOW">🟢 Low</option>
+                        <option value="MEDIUM" selected>🟡 Medium</option>
+                        <option value="HIGH">🔴 High</option>
+                    </select>
+                    
+                    <label for="task-status">Status</label>
+                    <select id="task-status">
+                        <option value="PENDING" selected>⏳ Pending</option>
+                        <option value="IN_PROGRESS">🔄 In Progress</option>
+                        <option value="COMPLETED">✅ Completed</option>
+                    </select>
+                    
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" 
+                                onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Statistics Modal -->
+        <div id="stats-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeStatsModal()">&times;</span>
+                <h2>📊 Statistics</h2>
+                <div id="stats-content"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <button onclick="showStatistics()" class="btn btn-info">
+                📊 Statistics
+            </button>
+            <p>Task Manager Pro v1.0 | Connected to API</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

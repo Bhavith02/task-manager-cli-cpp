@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: task-manager-api
+    env: docker
+    plan: free
+    buildCommand: |
+      cd build
+      cmake ..
+      make task_api_server
+    startCommand: ./build/task_api_server
+    envVars:
+      - key: PORT
+        value: 8080
